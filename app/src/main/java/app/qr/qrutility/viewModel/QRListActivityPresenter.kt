@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -24,6 +25,7 @@ class QRListActivityPresenter(private val activity: QRListActivity) : ViewModel(
         ) {
 
             Toast.makeText(activity, "Need Camera Permission", Toast.LENGTH_SHORT).show()
+            ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.CAMERA), 1)
             return
         }
 
