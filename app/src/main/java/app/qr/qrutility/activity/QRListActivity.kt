@@ -2,6 +2,7 @@ package app.qr.qrutility.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -26,14 +27,18 @@ class QRListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_qr_list)
         mPresenter = QRListActivityPresenter(this)
         mViewModel = QRListActivityViewModel(this)
         mBinding.qrViewPresenter = mPresenter
         mBinding.qrViewModel = mViewModel
         setSupportActionBar(toolbar)
+        val displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val columns = if (displayMetrics.widthPixels > 1200) 3 else 2
         recyclerView.layoutManager =
-            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            StaggeredGridLayoutManager(columns, StaggeredGridLayoutManager.VERTICAL)
         recyclerView.addItemDecoration(QRItemDecoration())
         recyclerView.adapter = QRRecyclerAdapter(this, mViewModel, mPresenter)
     }

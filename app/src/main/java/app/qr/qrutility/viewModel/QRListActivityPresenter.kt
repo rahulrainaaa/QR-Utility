@@ -1,7 +1,10 @@
 package app.qr.qrutility.viewModel
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.qr.qrutility.activity.QRListActivity
@@ -15,6 +18,14 @@ import kotlinx.coroutines.withContext
 class QRListActivityPresenter(private val activity: QRListActivity) : ViewModel() {
 
     fun fabClickQrScan() {
+
+        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+
+            Toast.makeText(activity, "Need Camera Permission", Toast.LENGTH_SHORT).show()
+            return
+        }
 
         var intentIntegrator = IntentIntegrator(activity)
         intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
