@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">QR Utility</string>
+    <string name="empty" />
+    <string name="about">About</string>
+    <string name="scan">Scan</string>
+    <string name="rate_app">Rate App</string>
+    <string name="under_dev">Under Development</string>
+</resources>
